@@ -1,0 +1,64 @@
+<Workspace Version="0.8.2.2392" X="-222.733847527181" Y="16.2957293186046" zoom="0.983096703456759" Name="Home" Description="" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.Function guid="fdb7570a-fcde-4e94-809f-edbd11c81ad6" type="Dynamo.Nodes.Function" nickname="DetailCurve.FromCurve" x="1008.11248100446" y="393.631110679688" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="24214d3e-6159-4b2c-97b4-0a35a13518d9" />
+      <Name value="DetailCurve.FromCurve" />
+      <Description value="Creates a detail line based on a given curve" />
+      <Inputs>
+        <Input value="Curve(s)" />
+        <Input value="View" />
+      </Inputs>
+      <Outputs>
+        <Output value="DetailCurve(s)" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Function guid="9c0c0d5c-46fd-4243-8562-85369b3af09c" type="Dynamo.Nodes.Function" nickname="Element.Location" x="721.01777970918" y="341.61871766777" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="0b59c4d8-afe4-4063-bf7e-2195fa33e8a9" />
+      <Name value="Element.Location" />
+      <Description value="Returns the location of an element as an XYZ (or if it's line-based the start and end point of the line), along with some booleans to help filtering the results. Use this for some element types (e.g. walls or lines) that do not work with the built-in Get Family Instance Location node. " />
+      <Inputs>
+        <Input value="Element(s)" />
+      </Inputs>
+      <Outputs>
+        <Output value="Points" />
+        <Output value="Curve Endpoints" />
+        <Output value="Curves" />
+        <Output value="Is Point" />
+        <Output value="Is Curve" />
+        <Output value="Has Location" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Function guid="b8a8b896-91b6-41c8-993b-4624d6495fb8" type="Dynamo.Nodes.Function" nickname="Document.ActiveViewFromCurrentDocument" x="1005.30268557004" y="510.740539720195" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="True">
+      <ID value="e5c5958c-016e-4efc-bb16-b3734d00a855" />
+      <Name value="Document.ActiveViewFromCurrentDocument" />
+      <Description value="Gets the active view of the current document" />
+      <Inputs />
+      <Outputs>
+        <Output value="View" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.DSModelElementsSelection guid="81154851-d59d-462d-9d64-f347e40f5edc" type="Dynamo.Nodes.DSModelElementsSelection" nickname="Select Model Elements" x="416.123007438377" y="470.113201633271" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <instance id="fd36dcce-1639-469c-8104-55211649a054-00322e75" />
+      <instance id="fd36dcce-1639-469c-8104-55211649a054-00322e76" />
+      <instance id="fd36dcce-1639-469c-8104-55211649a054-00322e77" />
+      <instance id="fd36dcce-1639-469c-8104-55211649a054-00322e78" />
+    </Dynamo.Nodes.DSModelElementsSelection>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="b8a8b896-91b6-41c8-993b-4624d6495fb8" start_index="0" end="fdb7570a-fcde-4e94-809f-edbd11c81ad6" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="81154851-d59d-462d-9d64-f347e40f5edc" start_index="0" end="9c0c0d5c-46fd-4243-8562-85369b3af09c" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations>
+    <Dynamo.Models.AnnotationModel guid="d5e8d5e6-e477-4cb7-9119-3ff6273a9553" annotationText="These are nodes from the Clockwork package&#xD;&#xA;&#xD;&#xA;HOOK UP THE Curves &gt; Curve(s) AND WATCH IT WORK --- FAST!" left="711.01777970918" top="281.61871766777" width="598.284905860855" height="322.121822052425" fontSize="14" InitialTop="341.61871766777" InitialHeight="292.121822052425" TextblockHeight="50" backgrouund="#FFC1D676">
+      <Models ModelGuid="fdb7570a-fcde-4e94-809f-edbd11c81ad6" />
+      <Models ModelGuid="9c0c0d5c-46fd-4243-8562-85369b3af09c" />
+      <Models ModelGuid="b8a8b896-91b6-41c8-993b-4624d6495fb8" />
+    </Dynamo.Models.AnnotationModel>
+  </Annotations>
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="10" eyeY="15" eyeZ="10" lookX="-10" lookY="-10" lookZ="-10" />
+  </Cameras>
+</Workspace>

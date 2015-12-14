@@ -1,0 +1,63 @@
+<Workspace Version="0.8.2.2392" X="374.52" Y="130.9125" zoom="1.1575" Name="Get GraphicStyle by Name" Description="Returns the GraphicStyle of a Linestyle Name" ID="34546963-ff96-474d-ab3a-61615d7be8f3" Category="BCJdt.Graphics">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="a001f40f-41ac-42a0-bba5-1c52fad9a3b1" type="DSIronPythonNode.PythonNode" nickname="Get LineStyle by Name" x="219.762419006479" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" inputcount="1">
+      <Script># Copyright(c) 2015, Jon Szczesniak - @jonszcz
+# BCJdt - Bohlin Cywinski Jackson designtech
+
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# --- INPUTS ---
+#The inputs to this node will be stored as a list in the IN variables.
+#The input to this node will be stored in the IN[0] variable.
+name = IN[0]
+
+doc =  DocumentManager.Instance.CurrentDBDocument
+app =  DocumentManager.Instance.CurrentUIApplication.Application
+
+# ---OUTPUT---
+lStyle = []
+
+# ---BODY---
+#collect all Lines in the model
+lineStyles = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Lines)
+
+try:
+	lStyle.append(next(i.LineStyle for i in lineStyles if name==i.LineStyle.Name))
+except StopIteration:
+	pass
+
+#Assign your output to the OUT variable.
+OUT = lStyle[0]</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.Symbol guid="41116b74-8392-461c-9c57-684c55e6bac9" type="Dynamo.Nodes.Symbol" nickname="Input" x="0" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <Symbol value="LineStyle" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Output guid="2c15ad4c-d04c-4947-bb9e-c1a360365b42" type="Dynamo.Nodes.Output" nickname="Output" x="477" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False">
+      <Symbol value="GraphicStyle" />
+    </Dynamo.Nodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="a001f40f-41ac-42a0-bba5-1c52fad9a3b1" start_index="0" end="2c15ad4c-d04c-4947-bb9e-c1a360365b42" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="41116b74-8392-461c-9c57-684c55e6bac9" start_index="0" end="a001f40f-41ac-42a0-bba5-1c52fad9a3b1" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="40.7218742370605" eyeY="56.4510650634766" eyeZ="99.4931335449219" lookX="-41.9661903381348" lookY="-62.7990951538086" lookZ="-86.0434417724609" />
+  </Cameras>
+</Workspace>

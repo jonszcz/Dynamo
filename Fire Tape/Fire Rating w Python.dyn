@@ -1,0 +1,98 @@
+<Workspace Version="0.8.2.2392" X="-1462.38187266604" Y="162.823740514374" zoom="1.08770075051245" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="False">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSRevitNodesUI.Levels guid="7017fce4-e3cd-4151-8ca6-068db1401f7e" type="DSRevitNodesUI.Levels" nickname="Levels" x="1127.94653788154" y="26.852656970025" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" index="0:LEVEL 1" />
+    <Dynamo.Nodes.Function guid="2a401ef4-bb8d-422b-ba93-48ab261d31ef" type="Dynamo.Nodes.Function" nickname="Get Wall Ratings" x="895.286653093813" y="124.973630348272" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="True">
+      <ID value="3e7bdf6e-2a02-46c8-9cdb-f18a5a0877f4" />
+      <Name value="Get Wall Ratings" />
+      <Description value="Returns a list of all the Fire Ratings of walls in the project" />
+      <Inputs />
+      <Outputs>
+        <Output value="Wall Ratings" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Function guid="ba56b0e8-a212-40d1-91ae-30280e010f97" type="Dynamo.Nodes.Function" nickname="List LineStyle" x="897.774510113181" y="392.643257303759" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="True">
+      <ID value="42e4a440-9b4c-4424-b2e9-780e5185d35b" />
+      <Name value="List LineStyle" />
+      <Description value="Returns a list of all LineStyles for Detail and Model lines" />
+      <Inputs />
+      <Outputs>
+        <Output value="LineStyles" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Function guid="99f89beb-8e2a-4ef7-a3c6-448ccaec07ad" type="Dynamo.Nodes.Function" nickname="Get GraphicStyle by Name" x="1342.59115517306" y="396.862291243874" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="34546963-ff96-474d-ab3a-61615d7be8f3" />
+      <Name value="Get GraphicStyle by Name" />
+      <Description value="Returns the GraphicStyle of a Linestyle Name" />
+      <Inputs>
+        <Input value="LineStyle" />
+      </Inputs>
+      <Outputs>
+        <Output value="GraphicStyle" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Function guid="ba8cfc7f-2c8f-478e-bfcf-c5a2993774b9" type="Dynamo.Nodes.Function" nickname="Filter Wall by Fire Rating &amp; Level" x="1335.42194178713" y="49.9807622234778" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="55d6eb10-7812-4038-9e17-71424c705606" />
+      <Name value="Filter Wall by Fire Rating &amp; Level" />
+      <Description value="Returns wall based on a given Level and Fire Rating" />
+      <Inputs>
+        <Input value="level" />
+        <Input value="Fire Rating" />
+      </Inputs>
+      <Outputs>
+        <Output value="Rated Walls" />
+        <Output value="Location Lines" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="b22ac2e1-4cb6-4f9b-9074-f905c9c8491b" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1140.370779993" y="400.276998949825" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="&quot;-Code - 1 HR&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="b4be0d03-8357-4a7a-ae0e-a8ad5b9ca54c" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1181.69410998505" y="116.006583448517" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="&quot;1 HR&quot;;&#xA;&quot;2 HR&quot;;&#xA;&quot;3 HR&quot;;&#xA;&quot;60&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.Function guid="e78903bf-938a-44cd-b60d-24524775e058" type="Dynamo.Nodes.Function" nickname="DetailComponent.ByCurve in Active View" x="1719.33398351694" y="7.62120375487228" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="d0ea110a-9c68-41db-bfb9-4ceb68e890b7" />
+      <Name value="DetailComponent.ByCurve in Active View" />
+      <Description value="Creates a Detail Componet in the Active View based on a given list of curves" />
+      <Inputs>
+        <Input value="Detail Component" />
+        <Input value="Curves" />
+      </Inputs>
+      <Outputs>
+        <Output value="Detail Component" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <DSRevitNodesUI.FamilyTypes guid="a93209d3-268e-4f66-8573-04441c160caa" type="DSRevitNodesUI.FamilyTypes" nickname="Family Types" x="1282.30797535773" y="-152.011107621395" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" index="123:01 00 00 Fire Tape:1 hour" />
+    <Dynamo.Nodes.Function guid="b167d83a-315d-4b42-bdb9-594dd14396cc" type="Dynamo.Nodes.Function" nickname="DetailLine w LineStyle.ByCurve in Active View" x="1715.14768546175" y="264.560388483031" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="9c13cf4f-8ec1-4714-8def-91e04c51bb6b" />
+      <Name value="DetailLine w LineStyle.ByCurve in Active View" />
+      <Description value="Create Detail Line w LineStyle by a Curve in the Active Revit View" />
+      <Inputs>
+        <Input value="Curves" />
+        <Input value="GraphicStyle" />
+      </Inputs>
+      <Outputs>
+        <Output value="Detail Lines" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Function guid="0b15e2f3-4265-4c46-9dbe-23cf917a9117" type="Dynamo.Nodes.Function" nickname="Element.SelectInView" x="2112.1451571893" y="151.858182875949" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="3aad227f-68ab-471c-856a-f835c5293c37" />
+      <Name value="Element.SelectInView" />
+      <Description value="Select the input elements in active view" />
+      <Inputs>
+        <Input value="Element(s)" />
+      </Inputs>
+      <Outputs>
+        <Output value="IDs" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="7017fce4-e3cd-4151-8ca6-068db1401f7e" start_index="0" end="ba8cfc7f-2c8f-478e-bfcf-c5a2993774b9" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="b22ac2e1-4cb6-4f9b-9074-f905c9c8491b" start_index="0" end="99f89beb-8e2a-4ef7-a3c6-448ccaec07ad" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="b4be0d03-8357-4a7a-ae0e-a8ad5b9ca54c" start_index="3" end="ba8cfc7f-2c8f-478e-bfcf-c5a2993774b9" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="a93209d3-268e-4f66-8573-04441c160caa" start_index="0" end="e78903bf-938a-44cd-b60d-24524775e058" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="40.7218742370605" eyeY="56.4510650634766" eyeZ="99.4931335449219" lookX="-41.9661903381348" lookY="-62.7990951538086" lookZ="-86.0434417724609" />
+  </Cameras>
+</Workspace>

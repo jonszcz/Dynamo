@@ -1,0 +1,56 @@
+<Workspace Version="0.8.2.2392" X="20.6" Y="76.2825" zoom="1.1575" Name="List LineStyle" Description="Returns a list of all LineStyles for Detail and Model lines" ID="42e4a440-9b4c-4424-b2e9-780e5185d35b" Category="BCJdt.Graphics">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="f8e0deac-0b6c-40ae-8cbe-a0aa0b48b102" type="DSIronPythonNode.PythonNode" nickname="List LineStyles" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" inputcount="0">
+      <Script># Copyright(c) 2015, Jon Szczesniak - @jonszcz
+# BCJdt - Bohlin Cywinski Jackson designtech
+
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# ---INPUTS---
+#The inputs to this node will be stored as a list in the IN variables.
+
+doc =  DocumentManager.Instance.CurrentDBDocument
+app =  DocumentManager.Instance.CurrentUIApplication.Application
+
+# ---OUTPUTS---
+lStyle = []
+
+# ---BODY---
+#collect all Lines in the model
+lineStyles = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Lines)
+
+for i in lineStyles:
+	i = i.LineStyle.Name
+	lStyle.append(i)
+
+#Assign your output to the OUT variable.
+OUT = sorted(set(lStyle))</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.Output guid="cdd6ec63-c9e7-4cfc-9564-4d7f93a3ed67" type="Dynamo.Nodes.Output" nickname="Output" x="424" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False">
+      <Symbol value="LineStyles" />
+    </Dynamo.Nodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="f8e0deac-0b6c-40ae-8cbe-a0aa0b48b102" start_index="0" end="cdd6ec63-c9e7-4cfc-9564-4d7f93a3ed67" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="40.7218742370605" eyeY="56.4510650634766" eyeZ="99.4931335449219" lookX="-41.9661903381348" lookY="-62.7990951538086" lookZ="-86.0434417724609" />
+  </Cameras>
+</Workspace>

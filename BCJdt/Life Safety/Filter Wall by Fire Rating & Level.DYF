@@ -1,0 +1,114 @@
+<Workspace Version="0.8.2.2392" X="50" Y="291" zoom="1" Name="Filter Wall by Fire Rating &amp; Level" Description="Returns wall based on a given Level and Fire Rating" ID="55d6eb10-7812-4038-9e17-71424c705606" Category="BCJdt.Life Safety">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.DSFunction guid="77138f7e-a730-4e12-bf5a-fde22946c7e5" type="Dynamo.Nodes.DSFunction" nickname="Level.Name" x="250" y="12.4139410963992" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="RevitNodes.dll" function="Revit.Elements.Level.Name" />
+    <DSIronPythonNode.PythonNode guid="576958ee-71a3-4ad0-b1cb-9d7724142591" type="DSIronPythonNode.PythonNode" nickname="Fire Rated Wall Collector" x="414.18417873146" y="13.6185659938527" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" inputcount="2">
+      <Script># Copyright(c) 2015, Jon Szczesniak - @jonszcz
+# BCJdt - Bohlin Cywinski Jackson designtech
+
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSTType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+
+# --- INPUTS ---
+#The inputs to this node will be stored as a list in the IN variables.
+inputList = IN
+
+#The inputs to this node will be stored in the IN[0] variable.
+_level = UnwrapElement(IN[0])
+_rating = IN[1]
+
+doc = DocumentManager.Instance.CurrentDBDocument
+app = DocumentManager.Instance.CurrentUIApplication.Application
+
+# -- OUPUTS ---
+allWallIDs = []
+levels = []
+levelWalls = []
+wTypes = []
+wRatings = []
+rWalls = []
+locs = []
+
+
+# --- BODY ---
+# Collect all * of the model into a list
+collector = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Walls).OfClass(Wall)
+famtype = collector.GetElementIdIterator()
+famtype.Reset()
+
+for x in famtype:
+	# Return Wall IDs for all walls in the FilteredElementCollector
+	allWallIDs.append(x)
+	
+	# Get the elements based on their element ID
+	Walls = doc.GetElement(x)
+	
+	# Return the Base Constrint of each wall
+	levname = Walls.Parameter['Base Constraint'].AsValueString()
+	levels.append(levname)	
+	
+	# Compare the Base Constraint against the target Level from input, and return true conditions
+	if levname == _level:
+		levelWalls.append(Walls)
+
+# Iterate through the levelWalls / Extract Wall Type then Fire Rating of that Wall Type
+for z in levelWalls:
+	wType = z.WallType
+	wTypes.append(wType)
+	wRating = wType.Parameter['Fire Rating'].AsString()
+	wRatings.append(wRating)
+	
+# Compare fire rating of wall type vs target rating, if true, export out the location curve
+	if wRating == _rating:
+		loc = Revit.GeometryConversion.RevitToProtoCurve.ToProtoType( z.Location.Curve, True )
+		locs.append(loc)
+		rWalls.append(z)
+	
+#Assign your output to the OUT variable.
+OUT = (allWallIDs, levels, levelWalls, wTypes, wRatings, rWalls, locs)</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="c7345885-0518-4dd3-b90d-73e6e2ece134" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="601.19303873213" y="78.3922050715141" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="6;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="286a1133-5284-4527-981b-0dd980a8054a" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="713.35974156296" y="0" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.Symbol guid="25b3a126-ce8e-41ba-8476-c958c7ab3e60" type="Dynamo.Nodes.Symbol" nickname="Input" x="0" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <Symbol value="level : Level" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Symbol guid="49de7bd2-d2dd-4722-b830-06a591d26d3d" type="Dynamo.Nodes.Symbol" nickname="Input" x="250" y="124" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <Symbol value="Fire Rating" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Output guid="2ab25591-17cf-4237-b65c-6dcf599ddd43" type="Dynamo.Nodes.Output" nickname="Output" x="923.35974156296" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False">
+      <Symbol value="item" />
+    </Dynamo.Nodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="77138f7e-a730-4e12-bf5a-fde22946c7e5" start_index="0" end="576958ee-71a3-4ad0-b1cb-9d7724142591" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="576958ee-71a3-4ad0-b1cb-9d7724142591" start_index="0" end="286a1133-5284-4527-981b-0dd980a8054a" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c7345885-0518-4dd3-b90d-73e6e2ece134" start_index="0" end="286a1133-5284-4527-981b-0dd980a8054a" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="286a1133-5284-4527-981b-0dd980a8054a" start_index="0" end="2ab25591-17cf-4237-b65c-6dcf599ddd43" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="25b3a126-ce8e-41ba-8476-c958c7ab3e60" start_index="0" end="77138f7e-a730-4e12-bf5a-fde22946c7e5" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="49de7bd2-d2dd-4722-b830-06a591d26d3d" start_index="0" end="576958ee-71a3-4ad0-b1cb-9d7724142591" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="38.1381072998047" eyeY="49.5020751953125" eyeZ="33.0850448608398" lookX="-39.3824234008789" lookY="-55.8501052856445" lookZ="-19.6353511810303" />
+  </Cameras>
+</Workspace>

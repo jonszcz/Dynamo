@@ -1,0 +1,138 @@
+<Workspace Version="0.8.2.2392" X="267.772634133056" Y="-25.5880921381392" zoom="0.48799764244871" Name="Home" Description="" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="485ab4b5-ba44-4e05-ad4f-b9e3fcd6aaae" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="570.611189636748" y="988.433998523787" isVisible="false" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" inputcount="1">
+      <Script>import clr
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+# Import ProtoGeometry
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# Define doc and app
+doc = DocumentManager.Instance.CurrentDBDocument
+app = DocumentManager.Instance.CurrentUIApplication.Application
+
+#The inputs to this node will be stored as a list in the IN variables.
+
+dataEnteringNode = IN
+
+types = []
+ratings = []
+walls = []
+locs = []
+output = []
+
+for x in IN[0]:
+	#type = x.GetType()
+	type = x.GetParameterValueByName("Type")
+	types.append(type)
+	rating = type.GetParameterValueByName("Fire Rating")
+	ratings.append(rating)
+	inst = UnwrapElement(x)
+	walls.append(inst)
+	loc = Revit.GeometryConversion.RevitToProtoCurve.ToProtoType( inst.Location.Curve, True )
+	locs.append(loc)
+
+#output.append(walls)
+#output.append(types)
+#output.append(locs)
+#output.append(ratings)
+OUT = (walls, types, locs, ratings)</Script>
+    </DSIronPythonNode.PythonNode>
+    <DSRevitNodesUI.Levels guid="20245366-e15b-4fdb-a874-e7f4879fe476" type="DSRevitNodesUI.Levels" nickname="Levels" x="-273.67234699926" y="1032.7903320037" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" index="0:LEVEL 1" />
+    <DSRevitNodesUI.ElementsAtLevel guid="c9d69e15-b842-4da6-96b4-727aaed43730" type="DSRevitNodesUI.ElementsAtLevel" nickname="All Elements at Level" x="-100.545459528952" y="1032.7903320037" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" />
+    <Dynamo.Nodes.Function guid="6eb385d9-8884-4984-b25b-9e8a769288d7" type="Dynamo.Nodes.Function" nickname="Element.IsOfCategory" x="83.8026150922087" y="1032.7903320037" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="ee585799-3d67-4bed-a135-b7b0ce52b916" />
+      <Name value="Element.IsOfCategory" />
+      <Description value="Checks whether an element is of a specified category" />
+      <Inputs>
+        <Input value="element(s)" />
+        <Input value="Category" />
+      </Inputs>
+      <Outputs>
+        <Output value="bool" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <DSRevitNodesUI.Categories guid="630fe87c-bb48-47ba-b69e-a660e6972db6" type="DSRevitNodesUI.Categories" nickname="Categories" x="78.9935348847004" y="1148.20825698391" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" index="894:Walls" />
+    <Dynamo.Nodes.Watch guid="61232d56-fde1-4022-8a07-350ea77c648a" type="Dynamo.Nodes.Watch" nickname="Watch" x="-123.065234469959" y="1124.16285594637" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" />
+    <Dynamo.Nodes.DSFunction guid="1f2de8a9-571b-456b-97dd-5e33dcc60059" type="Dynamo.Nodes.DSFunction" nickname="List.FilterByBoolMask" x="280.240139184507" y="992.905691217265" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.FilterByBoolMask@var[]..[],var[]..[]" />
+    <Dynamo.Nodes.Watch guid="cda15e59-195b-446a-9937-17d08388c82a" type="Dynamo.Nodes.Watch" nickname="Watch" x="493.893638700683" y="1079.60332888633" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" />
+    <Dynamo.Nodes.DSFunction guid="b6d05066-89a7-4a56-a9b0-ca59c4d085d4" type="Dynamo.Nodes.DSFunction" nickname="Wall Elements" x="984.196773974749" y="983.178247530742" isVisible="false" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.DSFunction guid="b1df29cb-2b31-437d-8fd7-379af298fec6" type="Dynamo.Nodes.DSFunction" nickname="Wall Types" x="983.713232564678" y="1099.68028028538" isVisible="false" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.DSFunction guid="d6cf3d5a-02ec-41f0-8b4d-af0680704c09" type="Dynamo.Nodes.DSFunction" nickname="Location Line" x="986.10725415241" y="1219.11129189964" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="0935c2bc-e61f-498e-bf9e-0faac90e06b0" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="617.759568157956" y="825.561426333974" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="0;&#xA;1;&#xA;2;&#xA;3;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="663c93b3-b93d-44f0-b3e2-b0b7515f3401" type="Dynamo.Nodes.DSFunction" nickname="Fire Rating" x="987.409909595921" y="1333.47029091447" isVisible="false" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.Function guid="aaa88579-6862-4f0c-a9a0-a373eb5efcd3" type="Dynamo.Nodes.Function" nickname="DetailCurve.FromCurve" x="1631.68803674553" y="1220.16559992349" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="24214d3e-6159-4b2c-97b4-0a35a13518d9" />
+      <Name value="DetailCurve.FromCurve" />
+      <Description value="Creates a detail line based on a given curve" />
+      <Inputs>
+        <Input value="Curve(s)" />
+        <Input value="View" />
+      </Inputs>
+      <Outputs>
+        <Output value="DetailCurve(s)" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Watch guid="f2d87fd0-e196-4212-a36e-f1e7f2894800" type="Dynamo.Nodes.Watch" nickname="Watch" x="1172.08427630967" y="1220.64575702459" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" />
+    <Dynamo.Nodes.DSFunction guid="1b982ab5-71c6-4f25-81a8-5d1b6d3f3cfa" type="Dynamo.Nodes.DSFunction" nickname="Document.Current" x="1599.49618895488" y="1349.80893888204" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="RevitNodes.dll" function="Revit.Application.Document.Current" />
+    <Dynamo.Nodes.DSFunction guid="e6fd010c-6139-4f35-9ec8-a1c40d0d7b6e" type="Dynamo.Nodes.DSFunction" nickname="Document.ActiveView" x="1743.66917818148" y="1348.38148354316" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="RevitNodes.dll" function="Revit.Application.Document.ActiveView" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="485ab4b5-ba44-4e05-ad4f-b9e3fcd6aaae" start_index="0" end="cda15e59-195b-446a-9937-17d08388c82a" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="485ab4b5-ba44-4e05-ad4f-b9e3fcd6aaae" start_index="0" end="b6d05066-89a7-4a56-a9b0-ca59c4d085d4" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="485ab4b5-ba44-4e05-ad4f-b9e3fcd6aaae" start_index="0" end="b1df29cb-2b31-437d-8fd7-379af298fec6" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="485ab4b5-ba44-4e05-ad4f-b9e3fcd6aaae" start_index="0" end="d6cf3d5a-02ec-41f0-8b4d-af0680704c09" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="485ab4b5-ba44-4e05-ad4f-b9e3fcd6aaae" start_index="0" end="663c93b3-b93d-44f0-b3e2-b0b7515f3401" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="20245366-e15b-4fdb-a874-e7f4879fe476" start_index="0" end="c9d69e15-b842-4da6-96b4-727aaed43730" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c9d69e15-b842-4da6-96b4-727aaed43730" start_index="0" end="6eb385d9-8884-4984-b25b-9e8a769288d7" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c9d69e15-b842-4da6-96b4-727aaed43730" start_index="0" end="61232d56-fde1-4022-8a07-350ea77c648a" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c9d69e15-b842-4da6-96b4-727aaed43730" start_index="0" end="1f2de8a9-571b-456b-97dd-5e33dcc60059" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="6eb385d9-8884-4984-b25b-9e8a769288d7" start_index="0" end="1f2de8a9-571b-456b-97dd-5e33dcc60059" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="630fe87c-bb48-47ba-b69e-a660e6972db6" start_index="0" end="6eb385d9-8884-4984-b25b-9e8a769288d7" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="1f2de8a9-571b-456b-97dd-5e33dcc60059" start_index="0" end="485ab4b5-ba44-4e05-ad4f-b9e3fcd6aaae" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="d6cf3d5a-02ec-41f0-8b4d-af0680704c09" start_index="0" end="f2d87fd0-e196-4212-a36e-f1e7f2894800" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="0935c2bc-e61f-498e-bf9e-0faac90e06b0" start_index="0" end="b6d05066-89a7-4a56-a9b0-ca59c4d085d4" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="0935c2bc-e61f-498e-bf9e-0faac90e06b0" start_index="1" end="b1df29cb-2b31-437d-8fd7-379af298fec6" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="0935c2bc-e61f-498e-bf9e-0faac90e06b0" start_index="2" end="d6cf3d5a-02ec-41f0-8b4d-af0680704c09" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="0935c2bc-e61f-498e-bf9e-0faac90e06b0" start_index="3" end="663c93b3-b93d-44f0-b3e2-b0b7515f3401" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="1b982ab5-71c6-4f25-81a8-5d1b6d3f3cfa" start_index="0" end="e6fd010c-6139-4f35-9ec8-a1c40d0d7b6e" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e6fd010c-6139-4f35-9ec8-a1c40d0d7b6e" start_index="0" end="aaa88579-6862-4f0c-a9a0-a373eb5efcd3" end_index="1" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel guid="398598f9-56a1-4ff0-b54a-51527780c69c" text="HOOK IT UP HERE" x="1484.68027170924" y="1247.85931333426" />
+  </Notes>
+  <Annotations>
+    <Dynamo.Models.AnnotationModel guid="20699b06-48aa-4a3d-bf70-7f1422619fe0" annotationText="Filter for only walls on a given level" left="-283.67234699926" top="962.905691217265" width="718.912486183767" height="403.257164729105" fontSize="14" InitialTop="992.905691217265" InitialHeight="248.801384807166" TextblockHeight="20" backgrouund="#FFA4E1FF">
+      <Models ModelGuid="20245366-e15b-4fdb-a874-e7f4879fe476" />
+      <Models ModelGuid="c9d69e15-b842-4da6-96b4-727aaed43730" />
+      <Models ModelGuid="6eb385d9-8884-4984-b25b-9e8a769288d7" />
+      <Models ModelGuid="630fe87c-bb48-47ba-b69e-a660e6972db6" />
+      <Models ModelGuid="61232d56-fde1-4022-8a07-350ea77c648a" />
+      <Models ModelGuid="1f2de8a9-571b-456b-97dd-5e33dcc60059" />
+    </Dynamo.Models.AnnotationModel>
+    <Dynamo.Models.AnnotationModel guid="4b645321-d50d-42a8-9196-87d04957b21e" annotationText="Node from Clockwork Package" left="1621.68803674553" top="1190.16559992349" width="217" height="149" fontSize="14" InitialTop="1220.16559992349" InitialHeight="149" TextblockHeight="20" backgrouund="#FFC1D676">
+      <Models ModelGuid="aaa88579-6862-4f0c-a9a0-a373eb5efcd3" />
+    </Dynamo.Models.AnnotationModel>
+  </Annotations>
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="10" eyeY="15" eyeZ="10" lookX="-10" lookY="-10" lookZ="-10" />
+  </Cameras>
+</Workspace>

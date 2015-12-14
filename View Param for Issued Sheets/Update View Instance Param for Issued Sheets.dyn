@@ -1,0 +1,60 @@
+<Workspace Version="0.8.2.2392" X="275.560800663674" Y="332.022191263965" zoom="0.357023527095326" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="False">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.DSFunction guid="9fb44a6a-555a-4c2b-9143-ec40026561c3" type="Dynamo.Nodes.DSFunction" nickname="Sheet.Views" x="1196.8111453733" y="192.637922624864" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="RevitNodes.dll" function="Revit.Elements.Views.Sheet.Views" />
+    <DSRevitNodesUI.ElementsOfCategory guid="4166ff15-39e3-4165-aa12-c72aff41b53c" type="DSRevitNodesUI.ElementsOfCategory" nickname="All Elements of Category" x="271.68210708954" y="199.753474095146" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" />
+    <DSRevitNodesUI.Categories guid="441e7f31-5515-46d1-8b35-d5d89bc30ea4" type="DSRevitNodesUI.Categories" nickname="Categories" x="77.8475197417138" y="199.711879935428" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" index="745:Sheets" />
+    <Dynamo.Nodes.DSFunction guid="6e571b46-ff06-4205-b8a2-56879af4e8fe" type="Dynamo.Nodes.DSFunction" nickname="Element.GetParameterValueByName" x="522.870591755922" y="282.449589887607" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="RevitNodes.dll" function="Revit.Elements.Element.GetParameterValueByName@string" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="292a39e7-2b3f-4992-8c90-498577d75fb9" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="75.5751661499646" y="613.485273133618" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="&quot;Sheet Issued-DD&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="f3e3b643-7259-432b-9aa1-7967a737fadc" type="Dynamo.Nodes.DSFunction" nickname="Flatten" x="1366.35608638314" y="191.990561261226" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="BuiltIn" function="Flatten@var[]..[]" />
+    <Dynamo.Nodes.DSFunction guid="6bb980d3-efc6-4808-923a-ca458a6b86e0" type="Dynamo.Nodes.DSFunction" nickname="Element.SetParameterByName" x="2323.49924921764" y="196.16831799185" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="RevitNodes.dll" function="Revit.Elements.Element.SetParameterByName@string,var" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="4fcbf237-3243-4ebc-b844-e68b999518ae" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="2099.26167764981" y="592.154059612822" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="&quot;IsViewIssued&quot;;&#xA;true;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="c616906f-71c8-43fe-abfa-37b305f0f08b" type="Dynamo.Nodes.DSFunction" nickname="==" x="828.863073788061" y="327.214807724752" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="Operators" function="==@var[]..[],var[]..[]" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="e91ab16f-c251-44c3-a8ba-fb991ba284fc" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="688.521910844118" y="403.7666808476" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="&quot;●&quot;;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="7058fcd5-93f6-4d46-9ab0-ce13e037d224" type="Dynamo.Nodes.DSFunction" nickname="List.FilterByBoolMask" x="1017.35819435809" y="192.692274227497" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.FilterByBoolMask@var[]..[],var[]..[]" />
+    <Dynamo.Nodes.DSFunction guid="90cfea11-25d0-4c21-b9fb-dbd3371f2508" type="Dynamo.Nodes.DSFunction" nickname="List.Clean" x="1522.34313958253" y="193.689709784478" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.Clean@var[]..[],bool">
+      <PortInfo index="1" default="True" />
+    </Dynamo.Nodes.DSFunction>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="4e4fd85e-1126-4143-b98b-aa226778d422" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1395.22726900133" y="288.633615757547" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="true;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="66872ddd-b859-4dd1-a395-1d654692999a" type="Dynamo.Nodes.DSFunction" nickname="Object.IsNull" x="1771.91301326421" y="260.552891372796" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.Object.IsNull@var" />
+    <Dynamo.Nodes.DSFunction guid="69db0207-d6e5-4db3-ae6a-0166d62d7faf" type="Dynamo.Nodes.DSFunction" nickname="List.RemoveItemAtIndex" x="2084.76300654665" y="198.091943749854" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.RemoveItemAtIndex@var[]..[],int[]" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="5c349a4f-5ef1-4ab7-9c0c-c4f31bb1201b" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="1801.52835853996" y="347.961265909147" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="true;" ShouldFocus="false" />
+    <Dynamo.Nodes.DSFunction guid="e830540a-1dd1-4e88-acdf-64f42d643731" type="Dynamo.Nodes.DSFunction" nickname="List.AllIndicesOf" x="1907.18329334614" y="259.753258448984" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="DSCoreNodes.dll" function="DSCore.List.AllIndicesOf@var[]..[],var" />
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="9fb44a6a-555a-4c2b-9143-ec40026561c3" start_index="0" end="f3e3b643-7259-432b-9aa1-7967a737fadc" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4166ff15-39e3-4165-aa12-c72aff41b53c" start_index="0" end="6e571b46-ff06-4205-b8a2-56879af4e8fe" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4166ff15-39e3-4165-aa12-c72aff41b53c" start_index="0" end="7058fcd5-93f6-4d46-9ab0-ce13e037d224" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="441e7f31-5515-46d1-8b35-d5d89bc30ea4" start_index="0" end="4166ff15-39e3-4165-aa12-c72aff41b53c" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="6e571b46-ff06-4205-b8a2-56879af4e8fe" start_index="0" end="c616906f-71c8-43fe-abfa-37b305f0f08b" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="292a39e7-2b3f-4992-8c90-498577d75fb9" start_index="0" end="6e571b46-ff06-4205-b8a2-56879af4e8fe" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f3e3b643-7259-432b-9aa1-7967a737fadc" start_index="0" end="90cfea11-25d0-4c21-b9fb-dbd3371f2508" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4fcbf237-3243-4ebc-b844-e68b999518ae" start_index="0" end="6bb980d3-efc6-4808-923a-ca458a6b86e0" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4fcbf237-3243-4ebc-b844-e68b999518ae" start_index="1" end="6bb980d3-efc6-4808-923a-ca458a6b86e0" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c616906f-71c8-43fe-abfa-37b305f0f08b" start_index="0" end="7058fcd5-93f6-4d46-9ab0-ce13e037d224" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e91ab16f-c251-44c3-a8ba-fb991ba284fc" start_index="0" end="c616906f-71c8-43fe-abfa-37b305f0f08b" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7058fcd5-93f6-4d46-9ab0-ce13e037d224" start_index="0" end="9fb44a6a-555a-4c2b-9143-ec40026561c3" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="90cfea11-25d0-4c21-b9fb-dbd3371f2508" start_index="0" end="66872ddd-b859-4dd1-a395-1d654692999a" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="90cfea11-25d0-4c21-b9fb-dbd3371f2508" start_index="0" end="69db0207-d6e5-4db3-ae6a-0166d62d7faf" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="4e4fd85e-1126-4143-b98b-aa226778d422" start_index="0" end="90cfea11-25d0-4c21-b9fb-dbd3371f2508" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="66872ddd-b859-4dd1-a395-1d654692999a" start_index="0" end="e830540a-1dd1-4e88-acdf-64f42d643731" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="69db0207-d6e5-4db3-ae6a-0166d62d7faf" start_index="0" end="6bb980d3-efc6-4808-923a-ca458a6b86e0" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="5c349a4f-5ef1-4ab7-9c0c-c4f31bb1201b" start_index="0" end="e830540a-1dd1-4e88-acdf-64f42d643731" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="e830540a-1dd1-4e88-acdf-64f42d643731" start_index="0" end="69db0207-d6e5-4db3-ae6a-0166d62d7faf" end_index="1" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel guid="f479381f-f42a-4d4e-9523-994bd188677d" text="BCJdt&#xD;&#xA;Jon Szczesniak&#xD;&#xA;jszczesniak@bcj.com&#xD;&#xA;&#xD;&#xA;2015 10 19&#xD;&#xA;&#xD;&#xA;OBJECTIVE:&#xD;&#xA;Update an instance parameter for a view based on whether the sheet the view is place on is being issued. Then create a filter based on this instance parameter to turn *off* the visibility of views *not* being issued with this set.&#xD;&#xA;&#xD;&#xA;EXPLANATION:&#xD;&#xA;This workflow will query all the sheets in your project for the value of a given parameter. The default parameter it queries is &quot;Sheet Issued-DD&quot;. This parameter is project specific, but is the parameter that is typically used to populate the sheet index.&#xD;&#xA;&#xD;&#xA;If the sheet *is* being issued the workflow will then parse all the views on the issued sheets, and update an instance parameter called &quot;IsViewIssued&quot; for each specific view. &#xD;&#xA;&#xD;&#xA;The last step occurs outside of dynamo. You will need to create a filter that searches the &quot;IsViewIssued&quot; parameter for values that are false. You can then turn off the visibility of these views." x="80.8150698202386" y="-371.006855902612" />
+  </Notes>
+  <Annotations>
+    <Dynamo.Models.AnnotationModel guid="456f64fb-e41b-4592-ab19-0e466dc87d9d" annotationText="What is the name of the Sheet Issuance Parameter you are matching the sheets against?" left="65.5751661499646" top="553.485273133618" width="205" height="153" fontSize="14" InitialTop="613.485273133618" InitialHeight="123" TextblockHeight="50" backgrouund="#FFC1D676">
+      <Models ModelGuid="292a39e7-2b3f-4992-8c90-498577d75fb9" />
+    </Dynamo.Models.AnnotationModel>
+    <Dynamo.Models.AnnotationModel guid="18a474d2-11e0-41a9-ba34-f24cd83b2684" annotationText="Verify that you have an instance parameter called &quot;IsViewIssued&quot;. It should be a text parameter set to View Categories." left="2089.26167764981" top="498.154059612822" width="181" height="197" fontSize="14" InitialTop="592.154059612822" InitialHeight="133" TextblockHeight="84" backgrouund="#FFC1D676">
+      <Models ModelGuid="4fcbf237-3243-4ebc-b844-e68b999518ae" />
+    </Dynamo.Models.AnnotationModel>
+  </Annotations>
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="10" eyeY="15" eyeZ="10" lookX="-10" lookY="-10" lookZ="-10" />
+  </Cameras>
+</Workspace>

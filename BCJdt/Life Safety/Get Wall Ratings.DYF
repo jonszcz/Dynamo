@@ -1,0 +1,69 @@
+<Workspace Version="0.8.2.2392" X="201" Y="135" zoom="1.1575" Name="Get Wall Ratings" Description="Returns a list of all the Fire Ratings of walls in the project" ID="3e7bdf6e-2a02-46c8-9cdb-f18a5a0877f4" Category="BCJdt.Life Safety">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="37b12406-6a75-4695-95f3-021dc7ce6bc1" type="DSIronPythonNode.PythonNode" nickname="Get Wall Fire Ratings" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" inputcount="0">
+      <Script># Copyright(c) 2015, Jon Szczesniak - @jonszcz
+# BCJdt - Bohlin Cywinski Jackson designtech
+
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSTType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+
+# --- INPUTS ---
+#The inputs to this node will be stored as a list in the IN variables.
+inputList = IN
+
+#The inputs to this node will be stored in the IN[0] variable.
+
+doc = DocumentManager.Instance.CurrentDBDocument
+app = DocumentManager.Instance.CurrentUIApplication.Application
+
+# -- OUPUTS ---
+wRatings = []
+
+# --- BODY ---
+# Collect all * of the model into a list
+collector = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Walls).OfClass(Wall)
+famtype = collector.GetElementIdIterator()
+famtype.Reset()
+
+for x in famtype:
+	x = doc.GetElement(x)
+	wType = x.WallType
+	wRating = wType.Parameter['Fire Rating'].AsString()
+	wRatings.append(wRating)
+	
+#Assign your output to the OUT variable.
+OUT = set(wRatings)</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.Output guid="fde0ea51-03d5-4fb9-b317-aa87c8982f04" type="Dynamo.Nodes.Output" nickname="Output" x="464" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False">
+      <Symbol value="Wall Ratings" />
+    </Dynamo.Nodes.Output>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="37b12406-6a75-4695-95f3-021dc7ce6bc1" start_index="0" end="fde0ea51-03d5-4fb9-b317-aa87c8982f04" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="40.7218742370605" eyeY="56.4510650634766" eyeZ="99.4931335449219" lookX="-41.9661903381348" lookY="-62.7990951538086" lookZ="-86.0434417724609" />
+  </Cameras>
+</Workspace>

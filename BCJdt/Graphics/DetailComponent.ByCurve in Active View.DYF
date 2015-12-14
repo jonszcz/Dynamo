@@ -1,0 +1,77 @@
+<Workspace Version="0.8.2.2392" X="309" Y="121" zoom="1" Name="DetailComponent.ByCurve in Active View" Description="Creates a Detail Componet in the Active View based on a given list of curves" ID="d0ea110a-9c68-41db-bfb9-4ceb68e890b7" Category="BCJdt.Graphics">
+  <NamespaceResolutionMap />
+  <Elements>
+    <DSIronPythonNode.PythonNode guid="10107ed6-36ac-4b6c-a5f9-98a2d4495fea" type="DSIronPythonNode.PythonNode" nickname="DetailComponent.ByCurve in Active View" x="250" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" inputcount="2">
+      <Script># Copyright(c) 2015, Jon Szczesniak - @jonszcz
+# BCJdt - Bohlin Cywinski Jackson designtech
+
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSTType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+clr.ImportExtensions(Revit.GeometryConversion)
+
+
+# --- INPUTS ---
+#The inputs to this node will be stored as a list in the IN variables.
+#The location Curves will be stored in the IN[0] variable.
+_locCurves = UnwrapElement(IN[0])
+
+#The intended LineStyle Output will be stored in the IN[1] variable.
+_detComponent = UnwrapElement(IN[1])
+
+doc = DocumentManager.Instance.CurrentDBDocument
+app = DocumentManager.Instance.CurrentUIApplication.Application
+
+# --- OUTPUTS ---
+outComponent = []
+# --- BODY ---
+
+#Transaction - Use when creating content in the Revit Model
+TransactionManager.Instance.EnsureInTransaction(doc)
+# Iterate through the location Curves and draw a Revit Detail line based on those Curves
+for c in _locCurves:
+	detComponent = doc.Create.NewFamilyInstance(c.ToRevitType(), _detComponent, doc.ActiveView)
+	outComponent.append(detCurve)
+TransactionManager.Instance.TransactionTaskDone()
+
+#Assign your output to the OUT variable.
+OUT = outComponent</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.Output guid="8a010a57-05fe-4602-bd67-cab4360d3f01" type="Dynamo.Nodes.Output" nickname="Output" x="591" y="0" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False">
+      <Symbol value="Detail Component" />
+    </Dynamo.Nodes.Output>
+    <Dynamo.Nodes.Symbol guid="2faa7c43-6ab0-44ba-97d6-bbb1b0b73031" type="Dynamo.Nodes.Symbol" nickname="Input" x="19" y="53" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <Symbol value="Detail Component" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Symbol guid="deb62228-f259-45cd-8e7d-b91a4f0230fb" type="Dynamo.Nodes.Symbol" nickname="Input" x="31" y="-51" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <Symbol value="Curves" />
+    </Dynamo.Nodes.Symbol>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="10107ed6-36ac-4b6c-a5f9-98a2d4495fea" start_index="0" end="8a010a57-05fe-4602-bd67-cab4360d3f01" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="2faa7c43-6ab0-44ba-97d6-bbb1b0b73031" start_index="0" end="10107ed6-36ac-4b6c-a5f9-98a2d4495fea" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="deb62228-f259-45cd-8e7d-b91a4f0230fb" start_index="0" end="10107ed6-36ac-4b6c-a5f9-98a2d4495fea" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="background_preview" eyeX="40.7218742370605" eyeY="56.4510650634766" eyeZ="99.4931335449219" lookX="-41.9661903381348" lookY="-62.7990951538086" lookZ="-86.0434417724609" />
+  </Cameras>
+</Workspace>
