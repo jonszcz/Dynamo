@@ -1,0 +1,38 @@
+<Workspace Version="0.9.0.3067" X="94.2244780221258" Y="-6.25355669353451" zoom="0.888789228297156" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.DSModelElementSelection guid="c030bb65-dc95-4d4d-8327-004c50a85d99" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Topo.Subregion" x="330.810340974185" y="321.094829512908" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" />
+    <Dynamo.Nodes.DSModelElementSelection guid="c73af289-146c-4242-87f3-23ebe3aec569" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Floor Slab" x="331.956875358016" y="498.284488538723" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" />
+    <Dynamo.Nodes.DSFunction guid="a32c0291-0be8-4da6-929b-cf60818f33c3" type="Dynamo.Nodes.DSFunction" nickname="Topography.Points" x="545" y="322" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False" assembly="RevitNodes.dll" function="Revit.Elements.Topography.Points" />
+    <Dynamo.Nodes.Function guid="3dfafeab-3468-421a-b6d4-41bad30b328d" type="Dynamo.Nodes.Function" nickname="RoofOrFloor.SlabShapeByPoints" x="810" y="380" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="d145e1db-d069-452f-b46d-7ad9b0fd906d" />
+      <Name value="RoofOrFloor.SlabShapeByPoints" />
+      <Description value="Transform a slab shape based on a list of XYZs. PLEASE NOTE: Will reset any previous edits on the slab shape." />
+      <Inputs>
+        <Input value="Point(s)" />
+        <Input value="Floor/Roof" />
+      </Inputs>
+      <Outputs>
+        <Output value="Floor/Roof" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="c030bb65-dc95-4d4d-8327-004c50a85d99" start_index="0" end="a32c0291-0be8-4da6-929b-cf60818f33c3" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="c73af289-146c-4242-87f3-23ebe3aec569" start_index="0" end="3dfafeab-3468-421a-b6d4-41bad30b328d" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="a32c0291-0be8-4da6-929b-cf60818f33c3" start_index="0" end="3dfafeab-3468-421a-b6d4-41bad30b328d" end_index="0" portType="0" />
+  </Connectors>
+  <Notes>
+    <Dynamo.Models.NoteModel guid="6fe119f6-9fcc-47cf-9690-b306b7ef6f78" text="1. Create a Floor with the exact outline as the hardscape you want to create.&#xD;&#xA;2. Edit the floor sketch and copy the outline of the floor.&#xD;&#xA;3. Create a Subregion in the toposurface and Paste-in-Place the sketch lines from the floor.&#xD;&#xA;4. Select the SubRegion in the top box of the workflow.&#xD;&#xA;5. Select the Floor in the bottom box of the workflow." x="24.4590403898359" y="322.360028425533" />
+    <Dynamo.Models.NoteModel guid="3adb1099-5799-417e-b26b-d1e5c80fa87d" text="Make a floor element follow a toposurface - Useful to create hardscapes.&#xD;&#xA;&#xD;&#xA;USE IN MANUAL MODE&#xD;&#xA;&#xD;&#xA;DEPENDENCIES&#xD;&#xA;---&#xD;&#xA;Clockwork&#xD;&#xA;&#xD;&#xA;---&#xD;&#xA;jon szczesniak - 2015 12 17" x="329.800521329748" y="102.660534104602" />
+  </Notes>
+  <Annotations>
+    <Dynamo.Models.AnnotationModel guid="3f72eaa7-16aa-40e9-a67a-de24a9982b93" annotationText="CLOCKWORK Package" left="800" top="350" width="230" height="149" fontSize="14" InitialTop="380" InitialHeight="149" TextblockHeight="20" backgrouund="#FFC1D676">
+      <Models ModelGuid="3dfafeab-3468-421a-b6d4-41bad30b328d" />
+    </Dynamo.Models.AnnotationModel>
+  </Annotations>
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>
