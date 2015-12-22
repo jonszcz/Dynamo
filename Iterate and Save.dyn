@@ -1,0 +1,41 @@
+<Workspace Version="0.9.0.3067" X="-230.767420598017" Y="-20.0168193374568" zoom="0.982642311367968" Name="Home" Description="" RunType="Manual" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.DSModelElementSelection guid="b77423d1-9c77-4119-bb81-fae9ee711b52" type="Dynamo.Nodes.DSModelElementSelection" nickname="Select Model Element" x="390.240854336417" y="241.048170867283" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <instance id="0d3a02da-a6c4-4fdd-a20a-ed6bd261b171-00323163" />
+    </Dynamo.Nodes.DSModelElementSelection>
+    <Dynamo.Nodes.CodeBlockNodeModel guid="9c2dc35a-1649-4655-b732-af87ba7c2c23" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="768" y="205" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="10..50..10;" ShouldFocus="false" />
+    <Dynamo.Nodes.Function guid="f34a4c12-059a-41d0-abc8-eda7b5630abd" type="Dynamo.Nodes.Function" nickname="UpdateParam&amp;SaveImage" x="747.190989432184" y="308.598314254583" isVisible="true" isUpstreamVisible="true" lacing="Shortest" isSelectedInput="False">
+      <ID value="70972984-7c8c-47ab-b8f0-9baa816bc759" />
+      <Name value="UpdateParam&amp;SaveImage" />
+      <Description value="Updates a family parameter, then saves and image of the state of the model" />
+      <Inputs>
+        <Input value="FamInstance" />
+        <Input value="Value" />
+        <Input value="Param" />
+        <Input value="SaveLocation" />
+      </Inputs>
+      <Outputs>
+        <Output value="" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <DSCore.Map guid="1e143a66-af09-4794-9d33-f563f2510ce6" type="DSCore.Map" nickname="List.Map" x="1018" y="281" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="False" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="b42ae077-38a3-4560-97de-02c8a35e7588" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="436.14451260185" y="333" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True" CodeText="&quot;Radius&quot;;" ShouldFocus="false" />
+    <DSCore.File.Filename guid="58bd94df-6025-42f2-8327-ddae8ab2f627" type="DSCore.File.Filename" nickname="File Path" x="291.252384948146" y="418.845727458977" isVisible="true" isUpstreamVisible="true" lacing="Disabled" isSelectedInput="True">
+      <System.String>C:\Users\jszczesniak\Desktop\Design Tech Projects\Dynamo\Test</System.String>
+    </DSCore.File.Filename>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="b77423d1-9c77-4119-bb81-fae9ee711b52" start_index="0" end="f34a4c12-059a-41d0-abc8-eda7b5630abd" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="9c2dc35a-1649-4655-b732-af87ba7c2c23" start_index="0" end="1e143a66-af09-4794-9d33-f563f2510ce6" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f34a4c12-059a-41d0-abc8-eda7b5630abd" start_index="0" end="1e143a66-af09-4794-9d33-f563f2510ce6" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="b42ae077-38a3-4560-97de-02c8a35e7588" start_index="0" end="f34a4c12-059a-41d0-abc8-eda7b5630abd" end_index="2" portType="0" />
+    <Dynamo.Models.ConnectorModel start="58bd94df-6025-42f2-8327-ddae8ab2f627" start_index="0" end="f34a4c12-059a-41d0-abc8-eda7b5630abd" end_index="3" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+  <Presets />
+  <Cameras>
+    <Camera Name="Background Preview" eyeX="-17" eyeY="24" eyeZ="50" lookX="12" lookY="-13" lookZ="-58" upX="0" upY="1" upZ="0" />
+  </Cameras>
+</Workspace>
