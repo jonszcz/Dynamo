@@ -1,0 +1,47 @@
+<Workspace Version="0.8.1.1942" X="-181.447828863987" Y="-8.02216838464869" zoom="1.05429821501133" Name="Home" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="True">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.Watch guid="69208af3-4a68-4888-baf2-fa89e15e6cfc" type="Dynamo.Nodes.Watch" nickname="Watch" x="756.313339721458" y="213.635248133721" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <DSIronPythonNode.PythonNode guid="3ae54d5a-9634-47bf-989e-7d6bf9236820" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="497.155225305199" y="213.023590273481" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
+      <Script>import clr
+clr.AddReference('RevitAPI')
+import Autodesk
+from Autodesk.Revit.DB import *
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+
+doc = DocumentManager.Instance.CurrentDBDocument
+app = DocumentManager.Instance.CurrentUIApplication.Application
+
+collector = FilteredElementCollector(doc)
+collector.OfCategory(BuiltInCategory.OST_Walls)
+collector.OfClass(Wall)
+walls = collector.GetElementIdIterator()
+walls.Reset()
+
+output = []
+heights = []
+FireRating = []
+
+for x in walls:
+	wallinst = doc.GetElement(x)
+	height = wallinst.Parameter['Unconnected Height'].AsValueString()
+	FR = type(BuiltInParameter.FIRE_RATING)
+	
+	heights.append(height)
+	FireRating.append(FR)
+	
+#Assign your output to the OUT variable.
+output.append(heights)
+output.append(FireRating)
+
+OUT = output</Script>
+    </DSIronPythonNode.PythonNode>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="3ae54d5a-9634-47bf-989e-7d6bf9236820" start_index="0" end="69208af3-4a68-4888-baf2-fa89e15e6cfc" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+</Workspace>

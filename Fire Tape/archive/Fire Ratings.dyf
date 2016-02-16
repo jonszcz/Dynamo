@@ -1,0 +1,62 @@
+<Workspace Version="0.8.1.1942" X="0" Y="0" zoom="1" Name="Fire Ratings" ID="133eecbc-67a9-4ecd-b820-ba2693f99173" Description="" Category="Revit.Elements.Wall">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.Symbol guid="9b306b89-ef31-4677-a292-32c8e5a91db8" type="Dynamo.Nodes.Symbol" nickname="Input" x="111" y="105" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Wall Ratings(s)" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Output guid="2d39ced8-4a1f-497a-bd99-b5633acf3f7c" type="Dynamo.Nodes.Output" nickname="Output" x="954.750588509269" y="205.422350941777" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Function(s)" />
+    </Dynamo.Nodes.Output>
+    <Dynamo.Nodes.Function guid="907df313-289c-4e18-b275-d2c1d5d61586" type="Dynamo.Nodes.Function" nickname="ReturnListOrSingleValue" x="677.750588509269" y="205.422350941777" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <ID value="44ac4888-4aa4-49a9-9344-23b729c11df9" />
+      <Name value="ReturnListOrSingleValue" />
+      <Description value="If the item in input #1 is not a list, only the first item of the list in input #2 will be returned." />
+      <Inputs>
+        <Input value="item #1 (unknown)" />
+        <Input value="item #2 (list)" />
+      </Inputs>
+      <Outputs>
+        <Output value="" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Function guid="f88dfd98-fa44-4248-a9b0-89908ca5ec09" type="Dynamo.Nodes.Function" nickname="Turn Into List" x="248.750588509269" y="218.422350941777" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <ID value="cd09ad33-8c34-4850-ac26-24448d92c38f" />
+      <Name value="Turn Into List" />
+      <Description value="Turns an element (or a nested list) into a flat list" />
+      <Inputs>
+        <Input value="item" />
+      </Inputs>
+      <Outputs>
+        <Output value="" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <DSIronPythonNode.PythonNode guid="a8ac589b-4a3c-4fec-aee3-1a93502690d1" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="453.750588509269" y="231.422350941777" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="1">
+      <Script>import clr
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+wallrating = UnwrapElement(IN[0])
+ratinglist = list()
+
+for item in wallrating:
+	try:
+		ratinglist.append(item.get_Parameter(BuiltInParameter.FUNCTION_PARAM).AsValueString())
+	except:
+		functionlist.append('No Wall/Function')
+OUT = functionlist</Script>
+    </DSIronPythonNode.PythonNode>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="9b306b89-ef31-4677-a292-32c8e5a91db8" start_index="0" end="f88dfd98-fa44-4248-a9b0-89908ca5ec09" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="9b306b89-ef31-4677-a292-32c8e5a91db8" start_index="0" end="907df313-289c-4e18-b275-d2c1d5d61586" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="907df313-289c-4e18-b275-d2c1d5d61586" start_index="0" end="2d39ced8-4a1f-497a-bd99-b5633acf3f7c" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="f88dfd98-fa44-4248-a9b0-89908ca5ec09" start_index="0" end="a8ac589b-4a3c-4fec-aee3-1a93502690d1" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="a8ac589b-4a3c-4fec-aee3-1a93502690d1" start_index="0" end="907df313-289c-4e18-b275-d2c1d5d61586" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+</Workspace>

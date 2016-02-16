@@ -1,0 +1,55 @@
+<Workspace Version="0.8.1.1942" X="-28.3581534402622" Y="-110.145194192748" zoom="0.8131456821731" Name="Home" RunType="Automatic" RunPeriod="1000" HasRunWithoutCrash="False">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.Function guid="c73fe932-b38a-4bac-b826-4ff3c04a11cd" type="Dynamo.Nodes.Function" nickname="LunchBox Wall Element Collector" x="514" y="206" isVisible="true" isUpstreamVisible="true" lacing="Shortest">
+      <ID value="3cf8f8fd-ebe9-4199-9e90-a8fde957a2a2" />
+      <Name value="LunchBox Wall Element Collector" />
+      <Description value="Collects wall elements from the Revit document." />
+      <Inputs>
+        <Input value="Toggle" />
+        <Input value="Wall Type" />
+      </Inputs>
+      <Outputs>
+        <Output value="Element" />
+        <Output value="Solid" />
+        <Output value="Location Curve" />
+        <Output value="Height" />
+        <Output value="Area" />
+        <Output value="Level" />
+        <Output value="ElementID" />
+        <Output value="Unique ID" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <Dynamo.Nodes.Function guid="6f4b3903-82c6-4e24-be65-3cfebf07a162" type="Dynamo.Nodes.Function" nickname="Wall Fire Ratings" x="550.779622029245" y="782.423535982483" isVisible="true" isUpstreamVisible="true" lacing="Shortest">
+      <ID value="ce3654eb-1bcf-49e7-bc83-434f764fbc4f" />
+      <Name value="Wall Fire Ratings" />
+      <Description value="Collects Fire Ratings of walls" />
+      <Inputs>
+        <Input value="Toggle" />
+        <Input value="Wall Type" />
+      </Inputs>
+      <Outputs>
+        <Output value="Rating" />
+      </Outputs>
+    </Dynamo.Nodes.Function>
+    <DSCoreNodesUI.BoolSelector guid="afd89ee4-d474-4a6e-a104-51101482c24e" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="155.510849228455" y="553.106509537073" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>True</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+    <Dynamo.Nodes.Watch guid="c78203c6-e3eb-4bbd-9478-db3e2faf5e4d" type="Dynamo.Nodes.Watch" nickname="Watch" x="869" y="282" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.Watch guid="485de203-3747-421a-a861-240d22b2a23a" type="Dynamo.Nodes.Watch" nickname="Watch" x="807.748426847214" y="782.401295539776" isVisible="true" isUpstreamVisible="true" lacing="Disabled" />
+    <Dynamo.Nodes.CodeBlockNodeModel guid="70348244-6299-4c02-b801-44487eb3aa59" type="Dynamo.Nodes.CodeBlockNodeModel" nickname="Code Block" x="213.398773166697" y="615.536013706633" isVisible="true" isUpstreamVisible="true" lacing="Disabled" CodeText="&quot;*&quot;;" ShouldFocus="false" />
+    <DSCoreNodesUI.BoolSelector guid="71a453ff-2536-4c91-81c4-8894cc54e2bd" type="DSCoreNodesUI.BoolSelector" nickname="Boolean" x="319.212746642035" y="206.679324400635" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Boolean>False</System.Boolean>
+    </DSCoreNodesUI.BoolSelector>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="c73fe932-b38a-4bac-b826-4ff3c04a11cd" start_index="6" end="c78203c6-e3eb-4bbd-9478-db3e2faf5e4d" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="6f4b3903-82c6-4e24-be65-3cfebf07a162" start_index="0" end="485de203-3747-421a-a861-240d22b2a23a" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="afd89ee4-d474-4a6e-a104-51101482c24e" start_index="0" end="6f4b3903-82c6-4e24-be65-3cfebf07a162" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="70348244-6299-4c02-b801-44487eb3aa59" start_index="0" end="c73fe932-b38a-4bac-b826-4ff3c04a11cd" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="70348244-6299-4c02-b801-44487eb3aa59" start_index="0" end="6f4b3903-82c6-4e24-be65-3cfebf07a162" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="71a453ff-2536-4c91-81c4-8894cc54e2bd" start_index="0" end="c73fe932-b38a-4bac-b826-4ff3c04a11cd" end_index="0" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+</Workspace>

@@ -1,0 +1,132 @@
+<Workspace Version="0.8.1.1942" X="-134.18936875" Y="-249.467172205724" zoom="1.33823125" Name="Wall Fire Ratings" ID="ce3654eb-1bcf-49e7-bc83-434f764fbc4f" Description="Collects Fire Ratings of walls" Category="test">
+  <NamespaceResolutionMap />
+  <Elements>
+    <Dynamo.Nodes.Symbol guid="d2d3f3f6-0e81-47b2-8fcd-07758657d0fc" type="Dynamo.Nodes.Symbol" nickname="Input" x="261" y="415" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Toggle" />
+    </Dynamo.Nodes.Symbol>
+    <Dynamo.Nodes.Symbol guid="d6d7240a-cfb2-4897-8224-ffe0d8a6140d" type="Dynamo.Nodes.Symbol" nickname="Input" x="244" y="488" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Wall Type" />
+    </Dynamo.Nodes.Symbol>
+    <DSIronPythonNode.PythonNode guid="0dfb0e33-b1db-436f-ba89-b7522bf7ab32" type="DSIronPythonNode.PythonNode" nickname="Python Script" x="412" y="434" isVisible="true" isUpstreamVisible="true" lacing="Disabled" inputcount="2">
+      <Script>#Copyright(c) 2014, Nathan Miller
+# The Proving Ground, http://theprovingground.org
+
+import clr
+
+# Import RevitAPI
+clr.AddReference("RevitAPI")
+import Autodesk
+from Autodesk.Revit.DB import *
+
+# Import DocumentManager and TransactionManager
+clr.AddReference("RevitServices")
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+
+# Import ToDSType(bool) extension method
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+#The input to this node will be stored in the IN[0] variable.
+
+doc =  DocumentManager.Instance.CurrentDBDocument
+app =  DocumentManager.Instance.CurrentUIApplication.Application
+
+toggle = IN[0]
+walltype = IN[1]
+
+#output = []
+#walls = []
+#locations = []
+#heights = []
+#areas = []
+#levelnames =[]
+#elementids = []
+#uniqueids = []
+fireratings = []
+
+if toggle == True:
+
+	collector = FilteredElementCollector(doc)
+	collector.OfCategory(BuiltInCategory.OST_Walls)
+	collector.OfClass(Wall)
+ 
+	famtypeitr = collector.GetElementIdIterator()
+	famtypeitr.Reset()
+
+	for item in famtypeitr:
+		famtypeID = item
+		faminst = doc.GetElement(famtypeID)
+    
+		if walltype == '*':
+			#API references to get wall data
+			#loc = Revit.GeometryConversion.RevitToProtoCurve.ToProtoType( faminst.Location.Curve, True )
+			#wall = faminst
+    		#levname = faminst.Parameter['Base Constraint'].AsValueString()
+			#height = faminst.Parameter['Unconnected Height'].AsDouble()
+			#area = faminst.Parameter['Area'].AsDouble()
+			#elementid = faminst.Id.ToString()
+			#uniqueid = faminst.UniqueId
+			firerating = GetFamilyTypeParameterValues(FIRE_RATING)
+			
+			#Apply wall data to containers to export
+			#walls.append(wall)
+			#locations.append(loc)
+			#heights.append(height)
+			#areas.append(area)
+			#levelnames.append(levname)
+			#elementids.append(elementid)
+			#uniqueids.append(uniqueid)  
+			fireratings.append(firerating)
+    	
+		elif faminst.WallType.Id == UnwrapElement(walltype).Id:
+			#loc = Revit.GeometryConversion.RevitToProtoCurve.ToProtoType( faminst.Location.Curve, True )
+			#wall = faminst
+    		#levname = faminst.Parameter['Base Constraint'].AsValueString()
+			#height = faminst.Parameter['Unconnected Height'].AsDouble()
+			#area = faminst.Parameter['Area'].AsDouble()
+			#elementid = faminst.Id.ToString()
+			#uniqueid = faminst.UniqueId
+			firerating = GetFamilyTypeParameterValues(FIRE_RATING)
+    	
+			#walls.append(wall)
+			#locations.append(loc)
+			#heights.append(height)
+			#areas.append(area)
+			#levelnames.append(levname)
+			#elementids.append(elementid)
+			#uniqueids.append(uniqueid)
+			fireratings.append(firerating)
+        
+	#output.append(walls)
+	#output.append(locations)
+	#output.append(heights)
+	#output.append(areas)
+	#output.append(levelnames)
+	#output.append(elementids)
+	#output.append(uniqueids)
+	output.append(fireratings)
+        
+#Assign your output to the OUT variable
+OUT = output</Script>
+    </DSIronPythonNode.PythonNode>
+    <Dynamo.Nodes.Output guid="e1874023-1225-4ba5-b5c5-ef5a8d95e17d" type="Dynamo.Nodes.Output" nickname="Output" x="807" y="440" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <Symbol value="Rating" />
+    </Dynamo.Nodes.Output>
+    <Dynamo.Nodes.DSFunction guid="7dc914fd-a420-4c31-8675-348358196d04" type="Dynamo.Nodes.DSFunction" nickname="List.GetItemAtIndex" x="627" y="439" isVisible="true" isUpstreamVisible="true" lacing="Shortest" assembly="DSCoreNodes.dll" function="DSCore.List.GetItemAtIndex@var[]..[],int" />
+    <Dynamo.Nodes.DoubleInput guid="38cef7e6-0efc-4f37-8748-2c06da45b8ff" type="Dynamo.Nodes.DoubleInput" nickname="Number" x="466" y="529" isVisible="true" isUpstreamVisible="true" lacing="Disabled">
+      <System.Double value="0" />
+    </Dynamo.Nodes.DoubleInput>
+  </Elements>
+  <Connectors>
+    <Dynamo.Models.ConnectorModel start="d2d3f3f6-0e81-47b2-8fcd-07758657d0fc" start_index="0" end="0dfb0e33-b1db-436f-ba89-b7522bf7ab32" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="d6d7240a-cfb2-4897-8224-ffe0d8a6140d" start_index="0" end="0dfb0e33-b1db-436f-ba89-b7522bf7ab32" end_index="1" portType="0" />
+    <Dynamo.Models.ConnectorModel start="0dfb0e33-b1db-436f-ba89-b7522bf7ab32" start_index="0" end="7dc914fd-a420-4c31-8675-348358196d04" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="7dc914fd-a420-4c31-8675-348358196d04" start_index="0" end="e1874023-1225-4ba5-b5c5-ef5a8d95e17d" end_index="0" portType="0" />
+    <Dynamo.Models.ConnectorModel start="38cef7e6-0efc-4f37-8748-2c06da45b8ff" start_index="0" end="7dc914fd-a420-4c31-8675-348358196d04" end_index="1" portType="0" />
+  </Connectors>
+  <Notes />
+  <Annotations />
+</Workspace>
